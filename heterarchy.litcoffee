@@ -49,7 +49,9 @@ The `multi` function memoizes its results such that identity is
 maintained, implying `multi X, Y is multi X, Y`.
 
     exports.multi = (bases...) ->
-        generate merge map(bases, mro).concat [bases]
+        cls = generate merge map(bases, mro).concat [bases]
+        cls.__bases__ = bases
+        cls
 
 This takes a list of classes representing a hierarchy (from most to
 least derived) and generates a single-inheritance hierarchy that
